@@ -9,3 +9,7 @@ BorderRadius kBorder30=BorderRadius.circular(30);
 
 //Textstyle
 TextStyle kHomeTitlText = const TextStyle(fontSize: 15,fontWeight: FontWeight.bold);
+
+//imageurl
+
+const imageAppendUrl ='https://image.tmdb.org/t/p/w500';

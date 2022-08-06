@@ -1,7 +1,8 @@
-
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:netflix/application/bloc/downloads_bloc.dart';
 import 'package:netflix/core/colors/colors.dart';
 import 'package:netflix/core/constatnt.dart';
 import 'package:netflix/presentation/widgets/app_bar_widget.dart';
@@ -18,11 +19,7 @@ class ScreenDownloads extends StatelessWidget {
               title: "Downloads",
             )),
         body: ListView(
-          children: [
-            const _smartdawonloads(),
-            Section2(),
-            const Secion3()
-          ],
+          children: [const _smartdawonloads(), Section2(), const Secion3()],
         ));
   }
 }
@@ -38,25 +35,29 @@ class _smartdawonloads extends StatelessWidget {
       children: [
         IconButton(
             onPressed: () {},
-            icon: Icon(
+            icon: const Icon(
               Icons.settings,
               color: kWhiteColor,
             )),
         kwidth,
-        Text('Smart Downloads')
+        const Text('Smart Downloads')
       ],
     );
   }
 }
 
 class Section2 extends StatelessWidget {
-  Section2({Key? key}) : super(key: key);
+  const Section2({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      BlocProvider.of<DownloadsBloc>(context)
+          .add(const DownloadsEvent.getDownloadsImage());
+    });
+
+    // BlocProvider.of<DownloadsBloc>(context).add(const DownloadsEvent.getDownloadsImage());
+
     final Size size = MediaQuery.of(context).size;
-  final List<dynamic>  imageList=['https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQOfNlj5zz1L7za2PHqHKojOkNYV88DZbAy_Q&usqp=CAU',
-  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQgTiTUL1BvOJ-zgcThFNflzsLntJbudpxRtw&usqp=CAU',
-  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpW4JWyiQUrd8MnS21LEG7AKuGF4ZSxMvAqg&usqp=CAU'];
 
     return Column(
       children: [
@@ -73,33 +74,33 @@ class Section2 extends StatelessWidget {
           style: TextStyle(color: Colors.grey, fontSize: 16),
         ),
         kHeight,
-        SizedBox(
-          width: size.width,
-          height: size.width,
-          child: Stack(alignment: Alignment.center, children: [
-            CircleAvatar(
-              radius: size.width * 0.4,
-              backgroundColor: Colors.grey.withOpacity(0.5),
-            ),
-            DawonloadImageWidgets(
-                imageList: imageList[0],
-                angle: 25,
-                margin: EdgeInsets.only(left: 170,bottom: 30),
-                size: Size(
-                  size.width * 0.4,
-                  size.width * 0.58,
-                )),
-            DawonloadImageWidgets(
-                imageList: imageList[1],
-                angle: -20,
-                margin: EdgeInsets.only(right: 170, bottom: 30),
-                size: Size(size.width * 0.4, size.width * 0.58)),
-            DawonloadImageWidgets(
-                imageList: imageList[2],
-                radius: 8,
-                margin: EdgeInsets.only( bottom: 0),
-                size: Size(size.width * 0.4, size.width * 0.65))
-          ]),
+        BlocBuilder<DownloadsBloc, DownloadsState>(
+          builder: (context, state) {
+            return Stack(alignment: Alignment.center, children: [
+              CircleAvatar(
+                radius: size.width * 0.4,
+                backgroundColor: Colors.grey.withOpacity(0.5),
+              ),
+              DawonloadImageWidgets(
+                  imageList: '$imageAppendUrl${state.downloads[0].posterPath}',
+                  angle: 25,
+                  margin: const EdgeInsets.only(left: 170, bottom: 30),
+                  size: Size(
+                    size.width * 0.4,
+                    size.width * 0.58,
+                  )),
+              DawonloadImageWidgets(
+                  imageList: '$imageAppendUrl${state.downloads[1].posterPath}',
+                  angle: -20,
+                  margin: const EdgeInsets.only(right: 170, bottom: 30),
+                  size: Size(size.width * 0.4, size.width * 0.58)),
+              DawonloadImageWidgets(
+                  imageList: '$imageAppendUrl${state.downloads[2].posterPath}',
+                  radius: 8,
+                  margin: const EdgeInsets.only(bottom: 0),
+                  size: Size(size.width * 0.4, size.width * 0.65))
+            ]);
+          },
         ),
       ],
     );
@@ -113,7 +114,8 @@ class Secion3 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        SizedBox(width: double.infinity,
+        SizedBox(
+          width: double.infinity,
           child: MaterialButton(
             onPressed: () {},
             color: kButtonColorBlue,
