@@ -13,10 +13,8 @@ class ComingSoonWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Row(
-      
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-   
         SizedBox(
           width: 50,
           height: 420,
@@ -80,4 +78,3 @@ class ComingSoonWidget extends StatelessWidget {
     );
   }
 }
-

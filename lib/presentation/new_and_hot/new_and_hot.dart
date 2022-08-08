@@ -1,7 +1,5 @@
 // ignore_for_file: unnecessary_const
 
-
-
 import 'package:flutter/material.dart';
 import 'package:netflix/core/colors/colors.dart';
 import 'package:netflix/core/constatnt.dart';
@@ -66,13 +64,11 @@ class ScreenNewAndHot extends StatelessWidget {
     });
   }
 
-
-
-
   Widget _buildEveryoneWatching() {
-    return ListView.builder(itemCount: 10,itemBuilder: (context, index){
-      return EveroneWactching();
-    });
+    return ListView.builder(
+        itemCount: 10,
+        itemBuilder: (context, index) {
+          return EveroneWactching();
+        });
   }
 }
-

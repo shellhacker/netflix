@@ -17,7 +17,7 @@ class DownloadsRepository implements IDownloadsRepo {
         final downloadsList = (respones.data['results'] as List).map((e) {
           return Downloads.fromJson(e);
         }).toList();
-       
+        print(downloadsList);
 
         return Right(downloadsList);
       } else {
