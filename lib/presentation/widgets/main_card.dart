@@ -2,18 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:netflix/core/constatnt.dart';
 
 class MainCardsWidget extends StatelessWidget {
-  const MainCardsWidget({
-    Key? key,
+  MainCardsWidget({
+
+    Key? key,required this.imageUrl
   }) : super(key: key);
+  String imageUrl;
+
 
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
           borderRadius: kBorder20,
-          image: DecorationImage(
-              image: NetworkImage(
-                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQxyWdcV3jDpPF6T-yYtRrvYVKGC0J0g6rzVw&usqp=CAU'))),
+          image: DecorationImage(fit: BoxFit.fill,
+              image: NetworkImage(imageUrl
+                  ))),
       width: 150,
       height: 250,
     );

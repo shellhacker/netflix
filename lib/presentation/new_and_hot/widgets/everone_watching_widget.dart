@@ -4,8 +4,14 @@ import 'package:netflix/presentation/home/widget/custom_button_widget.dart';
 import 'package:netflix/presentation/widgets/video_widget.dart';
 
 class EveroneWactching extends StatelessWidget {
+  final String posterPath;
+  final String movieName;
+  final String description;
+
   const EveroneWactching({
-    Key? key,
+    Key? key, required this.posterPath, 
+    required this.movieName, 
+    required this.description,
   }) : super(key: key);
 
   @override
@@ -14,14 +20,14 @@ class EveroneWactching extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         kHeight,
-        Text('Friends',
+        Text(movieName,
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
         kHeight,
-        Text(
-            style: TextStyle(fontSize: 13),
-            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR1ljgMsp7yuvOd7uC-Gdtd5LI4aCxhC3h3aA&usqp=CAU'),
+        Text(description,
+            style: TextStyle(fontSize: 13),maxLines: 4,overflow: TextOverflow.ellipsis,
+            ),
         kHeight50,
-        VideoWidget(),
+        VideoWidget(url:  posterPath,),
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [

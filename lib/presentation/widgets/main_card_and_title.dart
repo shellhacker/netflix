@@ -4,8 +4,10 @@ import 'package:netflix/presentation/widgets/main_card.dart';
 import 'package:netflix/presentation/widgets/main_title.dart';
 
 class MainCardAndTitle extends StatelessWidget {
-  MainCardAndTitle({Key? key, required this.title}) : super(key: key);
+  MainCardAndTitle({Key? key, required this.title,
+  required this.posterList}) : super(key: key);
   String title;
+  final List<String>posterList;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +22,11 @@ class MainCardAndTitle extends StatelessWidget {
             maxHeight: 200,
             child: ListView(
               scrollDirection: Axis.horizontal,
-              children: List.generate(20, (index) => MainCardsWidget()),
+              children: List.generate(posterList.length,
+               (index) => Padding(
+                 padding: const EdgeInsets.all(8.0),
+                 child: MainCardsWidget(imageUrl: posterList[index],),
+               )),
             ),
           )
         ],

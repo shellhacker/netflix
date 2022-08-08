@@ -67,48 +67,56 @@ class VideoListItem extends StatelessWidget {
                             : NetworkImage('$imageAppendUrl$posterPath'),
                       ),
                     ),
-                  ValueListenableBuilder(
-                    valueListenable: likedVideosIdsNotifier,
-                      builder: (BuildContext c, Set<int>newLikedListIds, Widget?_) {
-                        final _index= index;
-                        if(newLikedListIds.contains(_index)){
-                          return GestureDetector   (
-                            onTap: (){
+                    ValueListenableBuilder(
+                      valueListenable: likedVideosIdsNotifier,
+                      builder: (BuildContext c, Set<int> newLikedListIds,
+                          Widget? _) {
+                        final _index = index;
+                        if (newLikedListIds.contains(_index)) {
+                          return GestureDetector(
+                            onTap: () {
                               likedVideosIdsNotifier.value.remove(_index);
                               likedVideosIdsNotifier.notifyListeners();
                               // BlocProvider.of<FastLaughBloc>(context).add(UnlikeVideo(id: _index));
                             },
                             child: VideoActionsWidget(
-                              icon: Icons.favorite_border_outlined, title: 'Liked'),
+                                icon: Icons.favorite_border_outlined,
+                                title: 'Liked'),
                           );
-
                         }
 
-                        return GestureDetector(
-                          onTap: (){
-                          likedVideosIdsNotifier.value.add(_index);
-                             likedVideosIdsNotifier.notifyListeners();
-
-
-                            // BlocProvider.of<FastLaughBloc>(context).add(LikeVideo(id: _index));
-                          },
-                          child: VideoActionsWidget(
-                              icon: Icons.emoji_emotions, title: 'LoL'),
+                        return SizedBox(
+                          height: 100,
+                          width: 100,
+                          child: GestureDetector(
+                            onTap: () {
+                              likedVideosIdsNotifier.value.add(_index);
+                              likedVideosIdsNotifier.notifyListeners();
+                        
+                              // BlocProvider.of<FastLaughBloc>(context).add(LikeVideo(id: _index));
+                            },
+                            child: VideoActionsWidget(
+                                icon: Icons.emoji_emotions, title: 'LoL'),
+                          ),
                         );
                       },
                     ),
                     VideoActionsWidget(icon: Icons.add, title: 'My List'),
-                    GestureDetector(
-                      onTap: () {
-                        final movieName =
-                            VideoListItemInheritedWidget.of(context)
-                                ?.movieData
-                                .posterPath;
-                        if (movieName != null) {
-                          Share.share(movieName);
-                        }
-                        VideoActionsWidget(icon: Icons.share, title: 'Share');
-                      },
+                    SizedBox(
+                      height: 10,
+                          width: 100,
+                      child: GestureDetector(
+                        onTap: () {
+                          final movieName =
+                              VideoListItemInheritedWidget.of(context)
+                                  ?.movieData
+                                  .posterPath;
+                          if (movieName != null) {
+                            Share.share(movieName);
+                          }
+                          VideoActionsWidget(icon: Icons.share, title: 'Share');
+                        },
+                      ),
                     ),
                     VideoActionsWidget(icon: Icons.play_arrow, title: 'Play'),
                   ],

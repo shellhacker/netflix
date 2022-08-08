@@ -5,8 +5,9 @@ import 'package:netflix/presentation/widgets/main_title.dart';
 
 class NumberTitleCard extends StatelessWidget {
   const NumberTitleCard({
-    Key? key,
+    Key? key,required this.posterList
   }) : super(key: key);
+  final List<String>posterList;
 
   @override
   Widget build(BuildContext context) {
@@ -20,8 +21,8 @@ class NumberTitleCard extends StatelessWidget {
           child: ListView(
             scrollDirection: Axis.horizontal,
             children: List.generate(
-                20,
-                (index) => NumberCardWidget(
+                posterList.length,
+                (index) => NumberCardWidget(imageUrl: posterList[index],
                       index: index,
                     )),
           ),
