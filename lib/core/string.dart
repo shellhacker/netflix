@@ -1,1 +1,1 @@
-const String kBaseUrl='https://api.themoviedb.org/3';
+const String kBaseUrl = 'https://api.themoviedb.org/3';
